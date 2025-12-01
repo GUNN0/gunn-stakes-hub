@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      sweepstakes: {
+        Row: {
+          aff_link: string
+          category: string
+          created_at: string
+          custom_instructions: string | null
+          end_date: string | null
+          id: string
+          logo: string
+          name: string
+          reward: string
+          updated_at: string
+        }
+        Insert: {
+          aff_link: string
+          category: string
+          created_at?: string
+          custom_instructions?: string | null
+          end_date?: string | null
+          id?: string
+          logo: string
+          name: string
+          reward: string
+          updated_at?: string
+        }
+        Update: {
+          aff_link?: string
+          category?: string
+          created_at?: string
+          custom_instructions?: string | null
+          end_date?: string | null
+          id?: string
+          logo?: string
+          name?: string
+          reward?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
