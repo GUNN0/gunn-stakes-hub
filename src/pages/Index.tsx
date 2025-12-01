@@ -1,16 +1,55 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Hero } from "@/components/Hero";
 import { SearchFilters } from "@/components/SearchFilters";
 import { SweepstakeCard } from "@/components/SweepstakeCard";
-import { sweepstakesData } from "@/data/sweepstakes";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+
+interface Sweepstake {
+  id: string;
+  name: string;
+  logo: string;
+  reward: string;
+  category: string;
+  aff_link: string;
+  end_date?: string;
+  custom_instructions?: string;
+}
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
+  const [sweepstakes, setSweepstakes] = useState<Sweepstake[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchSweepstakes();
+  }, []);
+
+  const fetchSweepstakes = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('sweepstakes')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setSweepstakes(data || []);
+    } catch (error) {
+      toast({
+        title: "Error loading sweepstakes",
+        description: "Please refresh the page to try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredSweepstakes = useMemo(() => {
-    let filtered = [...sweepstakesData];
+    let filtered = [...sweepstakes];
 
     // Filter by search query
     if (searchQuery) {
@@ -36,8 +75,8 @@ const Index = () => {
         break;
       case "ending":
         filtered.sort((a, b) => {
-          if (!a.endDate || !b.endDate) return 0;
-          return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
+          if (!a.end_date || !b.end_date) return 0;
+          return new Date(a.end_date).getTime() - new Date(b.end_date).getTime();
         });
         break;
       case "popular":
@@ -49,7 +88,7 @@ const Index = () => {
     }
 
     return filtered;
-  }, [searchQuery, selectedCategory, sortBy]);
+  }, [searchQuery, selectedCategory, sortBy, sweepstakes]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -63,7 +102,11 @@ const Index = () => {
         />
 
         <div className="max-w-7xl mx-auto px-4">
-          {filteredSweepstakes.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-20">
+              <p className="text-2xl text-muted-foreground">Loading sweepstakes...</p>
+            </div>
+          ) : filteredSweepstakes.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-2xl text-muted-foreground">
                 No sweepstakes found matching your criteria
@@ -93,8 +136,9 @@ const Index = () => {
                       logo={sweepstake.logo}
                       reward={sweepstake.reward}
                       category={sweepstake.category}
-                      affLink={sweepstake.affLink}
-                      endDate={sweepstake.endDate}
+                      affLink={sweepstake.aff_link}
+                      endDate={sweepstake.end_date || undefined}
+                      customInstructions={sweepstake.custom_instructions || undefined}
                     />
                   </div>
                 ))}

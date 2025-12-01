@@ -10,6 +10,7 @@ interface SweepstakeCardProps {
   category: string;
   affLink: string;
   endDate?: string;
+  customInstructions?: string;
 }
 
 export const SweepstakeCard = ({ 
@@ -18,7 +19,8 @@ export const SweepstakeCard = ({
   reward, 
   category, 
   affLink,
-  endDate 
+  endDate,
+  customInstructions
 }: SweepstakeCardProps) => {
   return (
     <Card className="group overflow-hidden border-border hover:border-primary/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/10">
@@ -50,6 +52,12 @@ export const SweepstakeCard = ({
             <p className="text-lg font-semibold text-foreground">{reward}</p>
           </div>
         </div>
+        
+        {customInstructions && (
+          <p className="text-sm text-muted-foreground mt-3 italic">
+            {customInstructions}
+          </p>
+        )}
         
         {endDate && (
           <p className="text-sm text-muted-foreground mt-3">
