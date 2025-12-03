@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { Hero } from "@/components/Hero";
 import { SearchFilters } from "@/components/SearchFilters";
 import { SweepstakeCard } from "@/components/SweepstakeCard";
+import { FeaturedSection } from "@/components/FeaturedSection";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -14,6 +15,7 @@ interface Sweepstake {
   aff_link: string;
   end_date?: string;
   custom_instructions?: string;
+  eligible_countries?: string[];
 }
 
 const Index = () => {
@@ -101,22 +103,24 @@ const Index = () => {
           onSortChange={setSortBy}
         />
 
-        <div className="max-w-7xl mx-auto px-4">
-          {loading ? (
-            <div className="text-center py-20">
-              <p className="text-2xl text-muted-foreground">Loading sweepstakes...</p>
-            </div>
-          ) : filteredSweepstakes.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-2xl text-muted-foreground">
-                No sweepstakes found matching your criteria
-              </p>
-              <p className="text-muted-foreground mt-2">
-                Try adjusting your filters or search query
-              </p>
-            </div>
-          ) : (
-            <>
+        {loading ? (
+          <div className="max-w-7xl mx-auto px-4 text-center py-20">
+            <p className="text-2xl text-muted-foreground">Loading sweepstakes...</p>
+          </div>
+        ) : filteredSweepstakes.length === 0 ? (
+          <div className="max-w-7xl mx-auto px-4 text-center py-20">
+            <p className="text-2xl text-muted-foreground">
+              No sweepstakes found matching your criteria
+            </p>
+            <p className="text-muted-foreground mt-2">
+              Try adjusting your filters or search query
+            </p>
+          </div>
+        ) : (
+          <>
+            <FeaturedSection sweepstakes={sweepstakes} />
+            
+            <div className="max-w-7xl mx-auto px-4">
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="text-2xl font-bold">
                   <span className="text-primary">{filteredSweepstakes.length}</span>{" "}
@@ -139,13 +143,14 @@ const Index = () => {
                       affLink={sweepstake.aff_link}
                       endDate={sweepstake.end_date || undefined}
                       customInstructions={sweepstake.custom_instructions || undefined}
+                      eligibleCountries={sweepstake.eligible_countries || undefined}
                     />
                   </div>
                 ))}
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </main>
 
       <footer className="border-t border-border bg-card/50 backdrop-blur-sm py-8 mt-20">
