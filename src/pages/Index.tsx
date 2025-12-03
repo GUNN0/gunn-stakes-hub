@@ -21,6 +21,7 @@ interface Sweepstake {
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCountry, setSelectedCountry] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [sweepstakes, setSweepstakes] = useState<Sweepstake[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,6 +71,14 @@ const Index = () => {
       );
     }
 
+    // Filter by country
+    if (selectedCountry !== "all") {
+      filtered = filtered.filter(
+        (sweepstake) =>
+          sweepstake.eligible_countries?.includes(selectedCountry)
+      );
+    }
+
     // Sort
     switch (sortBy) {
       case "newest":
@@ -90,7 +99,7 @@ const Index = () => {
     }
 
     return filtered;
-  }, [searchQuery, selectedCategory, sortBy, sweepstakes]);
+  }, [searchQuery, selectedCategory, selectedCountry, sortBy, sweepstakes]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -100,6 +109,7 @@ const Index = () => {
         <SearchFilters
           onSearchChange={setSearchQuery}
           onCategoryChange={(value) => setSelectedCategory(value)}
+          onCountryChange={(value) => setSelectedCountry(value)}
           onSortChange={setSortBy}
         />
 
