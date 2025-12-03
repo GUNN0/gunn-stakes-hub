@@ -14,9 +14,10 @@ interface SearchFiltersProps {
   onSearchChange: (value: string) => void;
   onCategoryChange: (value: string) => void;
   onSortChange: (value: string) => void;
+  onCountryChange: (value: string) => void;
 }
 
-export const SearchFilters = ({ onSearchChange, onCategoryChange, onSortChange }: SearchFiltersProps) => {
+export const SearchFilters = ({ onSearchChange, onCategoryChange, onSortChange, onCountryChange }: SearchFiltersProps) => {
   const [showFilters, setShowFilters] = useState(false);
 
   return (
@@ -44,7 +45,7 @@ export const SearchFilters = ({ onSearchChange, onCategoryChange, onSortChange }
         </div>
 
         {showFilters && (
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-border animate-fade-in">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-border animate-fade-in">
             <div>
               <label className="text-sm font-medium text-foreground mb-2 block">
                 Category
@@ -60,6 +61,29 @@ export const SearchFilters = ({ onSearchChange, onCategoryChange, onSortChange }
                   <SelectItem value="travel">Travel & Vacation</SelectItem>
                   <SelectItem value="shopping">Shopping Spree</SelectItem>
                   <SelectItem value="automotive">Automotive</SelectItem>
+                  <SelectItem value="stimulus">Stimulus</SelectItem>
+                  <SelectItem value="groceries">Groceries</SelectItem>
+                  <SelectItem value="food-stamps">Food Stamps</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                Country
+              </label>
+              <Select onValueChange={onCountryChange}>
+                <SelectTrigger className="h-12 bg-secondary/50">
+                  <SelectValue placeholder="All Countries" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Countries</SelectItem>
+                  <SelectItem value="US">🇺🇸 United States</SelectItem>
+                  <SelectItem value="CA">🇨🇦 Canada</SelectItem>
+                  <SelectItem value="UK">🇬🇧 United Kingdom</SelectItem>
+                  <SelectItem value="AU">🇦🇺 Australia</SelectItem>
+                  <SelectItem value="DE">🇩🇪 Germany</SelectItem>
+                  <SelectItem value="FR">🇫🇷 France</SelectItem>
                 </SelectContent>
               </Select>
             </div>
