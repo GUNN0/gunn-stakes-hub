@@ -20,6 +20,7 @@ export type Database = {
           category: string
           created_at: string
           custom_instructions: string | null
+          eligible_countries: string[] | null
           end_date: string | null
           id: string
           logo: string
@@ -32,6 +33,7 @@ export type Database = {
           category: string
           created_at?: string
           custom_instructions?: string | null
+          eligible_countries?: string[] | null
           end_date?: string | null
           id?: string
           logo: string
@@ -44,6 +46,7 @@ export type Database = {
           category?: string
           created_at?: string
           custom_instructions?: string | null
+          eligible_countries?: string[] | null
           end_date?: string | null
           id?: string
           logo?: string

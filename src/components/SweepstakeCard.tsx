@@ -2,6 +2,8 @@ import { ExternalLink, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { CountdownTimer } from "./CountdownTimer";
+import { CountryFlags } from "./CountryFlags";
 
 interface SweepstakeCardProps {
   name: string;
@@ -11,6 +13,7 @@ interface SweepstakeCardProps {
   affLink: string;
   endDate?: string;
   customInstructions?: string;
+  eligibleCountries?: string[];
 }
 
 export const SweepstakeCard = ({ 
@@ -20,7 +23,8 @@ export const SweepstakeCard = ({
   category, 
   affLink,
   endDate,
-  customInstructions
+  customInstructions,
+  eligibleCountries
 }: SweepstakeCardProps) => {
   return (
     <Card className="group overflow-hidden border-border hover:border-primary/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/10">
@@ -59,11 +63,12 @@ export const SweepstakeCard = ({
           </p>
         )}
         
-        {endDate && (
-          <p className="text-sm text-muted-foreground mt-3">
-            Ends: {endDate}
-          </p>
-        )}
+        <div className="flex items-center justify-between mt-3 gap-2">
+          {endDate && <CountdownTimer endDate={endDate} />}
+          {eligibleCountries && eligibleCountries.length > 0 && (
+            <CountryFlags countries={eligibleCountries} />
+          )}
+        </div>
       </CardContent>
 
       <CardFooter>
