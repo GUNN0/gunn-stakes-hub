@@ -102,6 +102,8 @@ const Index = () => {
     return filtered;
   }, [searchQuery, selectedCategory, selectedCountry, sortBy, sweepstakes]);
 
+  const baseUrl = "https://gunnstakes.com";
+
   // BreadcrumbList JSON-LD Schema
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -111,49 +113,122 @@ const Index = () => {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": typeof window !== "undefined" ? window.location.origin : "https://gunnstakes.com"
+        "item": baseUrl
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Sweepstakes",
-        "item": typeof window !== "undefined" ? window.location.href : "https://gunnstakes.com"
+        "name": "Free Sweepstakes",
+        "item": `${baseUrl}/`
       }
     ]
   };
 
-  // WebSite Schema for SEO
+  // WebSite Schema - comprehensive for AEO
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "GUNN STAKES",
-    "description": "Your ultimate sweepstakes hub - enter for a chance to win cash, electronics, travel, and more for free.",
-    "url": typeof window !== "undefined" ? window.location.origin : "https://gunnstakes.com"
+    "alternateName": "Gunn Stakes Sweepstakes",
+    "description": "GUNN STAKES is your trusted hub for free, verified sweepstakes. Enter to win cash prizes, electronics, travel packages, and more with no purchase necessary. New giveaways added daily.",
+    "url": baseUrl,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${baseUrl}/?search={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "GUNN STAKES"
+    }
   };
 
-  // ItemList Schema for sweepstakes
-  const itemListSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Free Sweepstakes",
-    "description": "Browse free sweepstakes to win cash, electronics, travel and more",
-    "numberOfItems": filteredSweepstakes.length,
-    "itemListElement": filteredSweepstakes.slice(0, 10).map((sweepstake, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": sweepstake.name,
-      "description": sweepstake.reward
-    }))
-  };
-
-  // Organization Schema
+  // Organization Schema - complete with all required fields
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "GUNN STAKES",
-    "url": "https://gunnstakes.com",
-    "logo": "https://gunnstakes.com/favicon.png",
-    "description": "Your ultimate sweepstakes hub - enter for a chance to win cash, electronics, travel, and more for free."
+    "alternateName": "Gunn Stakes",
+    "url": baseUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${baseUrl}/favicon.png`,
+      "width": 512,
+      "height": 512
+    },
+    "image": `${baseUrl}/favicon.png`,
+    "description": "GUNN STAKES is your trusted destination for finding and entering legitimate sweepstakes. We curate verified, free-to-enter giveaways so you can win cash, electronics, travel, and more without any purchase necessary.",
+    "foundingDate": "2024",
+    "sameAs": [],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "availableLanguage": ["English"]
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United States"
+    }
+  };
+
+  // ItemList Schema for sweepstakes with enhanced details
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Free Sweepstakes and Giveaways",
+    "description": "Browse our curated collection of verified, free-to-enter sweepstakes. Win cash, electronics, travel packages, gaming gear, and more with no purchase necessary.",
+    "numberOfItems": filteredSweepstakes.length,
+    "itemListOrder": "https://schema.org/ItemListOrderDescending",
+    "itemListElement": filteredSweepstakes.slice(0, 10).map((sweepstake, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": sweepstake.name,
+      "description": `Win ${sweepstake.reward} - Free entry sweepstake in the ${sweepstake.category} category`,
+      "url": sweepstake.aff_link
+    }))
+  };
+
+  // FAQPage Schema for common questions
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is GUNN STAKES free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, GUNN STAKES is 100% free. All sweepstakes listed on our platform are free to enter with no purchase necessary."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the sweepstakes on GUNN STAKES legitimate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we verify all sweepstakes before listing them. Every giveaway on GUNN STAKES comes from legitimate sponsors offering real prizes including cash, electronics, and travel packages."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How often are new sweepstakes added?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "New sweepstakes are added daily. We continuously curate and verify new giveaways to give you fresh opportunities to win."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of prizes can I win?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can win a variety of prizes including cash, electronics, travel packages, gaming gear, gift cards, groceries, and more. Filter by category to find prizes that interest you."
+        }
+      }
+    ]
   };
 
   return (
@@ -166,10 +241,13 @@ const Index = () => {
           {JSON.stringify(websiteSchema)}
         </script>
         <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+        <script type="application/ld+json">
           {JSON.stringify(itemListSchema)}
         </script>
         <script type="application/ld+json">
-          {JSON.stringify(organizationSchema)}
+          {JSON.stringify(faqSchema)}
         </script>
       </Helmet>
 
