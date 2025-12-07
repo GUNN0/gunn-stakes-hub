@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Hero } from "@/components/Hero";
 import { SearchFilters } from "@/components/SearchFilters";
 import { SweepstakeCard } from "@/components/SweepstakeCard";
@@ -101,11 +102,60 @@ const Index = () => {
     return filtered;
   }, [searchQuery, selectedCategory, selectedCountry, sortBy, sweepstakes]);
 
+  // BreadcrumbList JSON-LD Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": typeof window !== "undefined" ? window.location.origin : "https://gunnstakes.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Sweepstakes",
+        "item": typeof window !== "undefined" ? window.location.href : "https://gunnstakes.com"
+      }
+    ]
+  };
+
+  // WebSite Schema for SEO
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "GUNN STAKES",
+    "description": "Your ultimate sweepstakes hub - enter for a chance to win cash, electronics, travel, and more for free.",
+    "url": typeof window !== "undefined" ? window.location.origin : "https://gunnstakes.com"
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(websiteSchema)}
+        </script>
+      </Helmet>
+
       <Hero />
       
       <main className="pb-20">
+        {/* Navigation Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 py-4">
+          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+            <li>
+              <a href="/" className="hover:text-primary transition-colors">Home</a>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-foreground font-medium">Sweepstakes</li>
+          </ol>
+        </nav>
+
         <SearchFilters
           onSearchChange={setSearchQuery}
           onCategoryChange={(value) => setSelectedCategory(value)}
@@ -130,20 +180,21 @@ const Index = () => {
           <>
             <FeaturedSection sweepstakes={sweepstakes} />
             
-            <div className="max-w-7xl mx-auto px-4">
+            <section className="max-w-7xl mx-auto px-4" aria-labelledby="sweepstakes-heading">
               <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold">
+                <h2 id="sweepstakes-heading" className="text-2xl font-bold">
                   <span className="text-primary">{filteredSweepstakes.length}</span>{" "}
                   Sweepstakes Available
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
                 {filteredSweepstakes.map((sweepstake, index) => (
-                  <div
+                  <article
                     key={sweepstake.id}
                     className="animate-fade-in"
                     style={{ animationDelay: `${index * 0.05}s` }}
+                    role="listitem"
                   >
                     <SweepstakeCard
                       name={sweepstake.name}
@@ -155,10 +206,10 @@ const Index = () => {
                       customInstructions={sweepstake.custom_instructions || undefined}
                       eligibleCountries={sweepstake.eligible_countries || undefined}
                     />
-                  </div>
+                  </article>
                 ))}
               </div>
-            </div>
+            </section>
           </>
         )}
       </main>
