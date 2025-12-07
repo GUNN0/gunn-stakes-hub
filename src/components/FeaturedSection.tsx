@@ -30,12 +30,13 @@ export const FeaturedSection = ({ sweepstakes }: FeaturedSectionProps) => {
   if (featured.length === 0) return null;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 mb-12">
-      <div className="flex items-center gap-3 mb-6">
+    <section id="featured-sweepstakes" className="max-w-7xl mx-auto px-4 mb-12" aria-labelledby="featured-heading">
+      <div className="flex items-center gap-3 mb-4">
         <Star className="h-6 w-6 text-primary fill-primary" />
-        <h2 className="text-2xl font-bold">Featured Sweepstakes</h2>
+        <h2 id="featured-heading" className="text-2xl font-bold">Featured Sweepstakes</h2>
         <div className="flex-1 h-px bg-gradient-to-r from-primary/50 to-transparent" />
       </div>
+      <p className="text-muted-foreground mb-6">Our top picks with the highest prize values. Don't miss these incredible opportunities to win big.</p>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {featured.map((sweepstake, index) => (
