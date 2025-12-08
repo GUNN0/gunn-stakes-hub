@@ -165,8 +165,15 @@ const Index = () => {
     "sameAs": [],
     "contactPoint": {
       "@type": "ContactPoint",
-      "contactType": "customer service",
-      "availableLanguage": ["English"]
+      "contactType": "customer support",
+      "email": "support@gunnstakes.com",
+      "availableLanguage": ["English"],
+      "hoursAvailable": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      }
     },
     "areaServed": {
       "@type": "Country",
@@ -325,10 +332,19 @@ const Index = () => {
               </div>
 
               {/* Content section with more text for SEO */}
-              <div className="mb-8 text-muted-foreground">
+              <div className="mb-8 text-muted-foreground space-y-4">
                 <p>
                   Browse our curated collection of legitimate sweepstakes and giveaways. Each listing is verified and 100% free to enter with no purchase necessary. 
                   Filter by category, country eligibility, or use the search to find specific prizes. New sweepstakes are added daily, so check back often for fresh opportunities to win.
+                </p>
+                <p>
+                  At GUNN STAKES, we believe everyone deserves a chance to win. That's why we scour the internet to find the best legitimate sweepstakes and bring them to you in one convenient location. 
+                  Whether you're looking to win cash prizes, the latest electronics, dream vacations, or everyday essentials like groceries, we've got you covered. Our team verifies each sweepstake to ensure 
+                  you're only entering real, legitimate giveaways from trusted sponsors.
+                </p>
+                <p>
+                  Getting started is simple: browse our listings, find a sweepstake that interests you, and click "Win Here" to enter. Many sweepstakes allow multiple entries, so be sure to check the official 
+                  rules for each offer. Remember, all entries are completely free — if someone asks you to pay to enter, it's not a legitimate sweepstake.
                 </p>
               </div>
 
@@ -358,13 +374,39 @@ const Index = () => {
         )}
       </main>
 
-      <footer className="border-t border-border bg-card/50 backdrop-blur-sm py-12 mt-20">
+      {/* FAQ Section for more content */}
+      <section id="faq" className="max-w-4xl mx-auto px-4 py-16" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+        <div className="space-y-6">
+          <div className="bg-card border border-border rounded-lg p-6">
+            <h3 className="font-semibold text-lg mb-2">Is GUNN STAKES free to use?</h3>
+            <p className="text-muted-foreground">Yes, GUNN STAKES is 100% free. All sweepstakes listed on our platform are free to enter with no purchase necessary. We never charge users to access or enter any giveaway.</p>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-6">
+            <h3 className="font-semibold text-lg mb-2">Are the sweepstakes on GUNN STAKES legitimate?</h3>
+            <p className="text-muted-foreground">Yes, we verify all sweepstakes before listing them. Every giveaway on GUNN STAKES comes from legitimate sponsors offering real prizes including cash, electronics, travel packages, and more.</p>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-6">
+            <h3 className="font-semibold text-lg mb-2">How often are new sweepstakes added?</h3>
+            <p className="text-muted-foreground">New sweepstakes are added daily. We continuously curate and verify new giveaways to give you fresh opportunities to win prizes every single day.</p>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-6">
+            <h3 className="font-semibold text-lg mb-2">What types of prizes can I win?</h3>
+            <p className="text-muted-foreground">You can win a variety of prizes including cash, electronics like iPhones and laptops, travel packages, gaming gear, gift cards, groceries, and much more. Use our category filters to find prizes that interest you.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-border bg-card/50 backdrop-blur-sm py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <h3 className="font-bold text-lg mb-4">About GUNN STAKES</h3>
+              <p className="text-muted-foreground text-sm mb-4">
+                Your trusted destination for finding and entering legitimate sweepstakes. We curate the best free-to-enter giveaways so you can win cash, electronics, travel, and more without spending a dime.
+              </p>
               <p className="text-muted-foreground text-sm">
-                Your trusted destination for finding and entering legitimate sweepstakes. We curate the best free-to-enter giveaways so you can win cash, electronics, travel, and more.
+                Founded with a mission to help everyday people discover real opportunities to win prizes, GUNN STAKES has become a go-to resource for sweepstakes enthusiasts across the country.
               </p>
             </div>
             <div>
@@ -375,13 +417,14 @@ const Index = () => {
                   <li><a href="#featured-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">Featured Sweepstakes</a></li>
                   <li><a href="#all-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">All Sweepstakes</a></li>
                   <li><a href="#categories" className="text-muted-foreground hover:text-primary transition-colors">Categories</a></li>
+                  <li><a href="#faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</a></li>
                 </ul>
               </nav>
             </div>
             <div>
               <h3 className="font-bold text-lg mb-4">Categories</h3>
               <ul className="space-y-2 text-sm">
-                {["Cash", "Electronics", "Travel", "Gaming"].map((cat) => (
+                {["Cash", "Electronics", "Travel", "Gaming", "Groceries"].map((cat) => (
                   <li key={cat}>
                     <a 
                       href="#all-sweepstakes" 
@@ -394,18 +437,57 @@ const Index = () => {
                 ))}
               </ul>
             </div>
+            <div>
+              <h3 className="font-bold text-lg mb-4">Contact & Support</h3>
+              <address className="not-italic text-sm text-muted-foreground space-y-2">
+                <p>
+                  <strong>Email:</strong>{" "}
+                  <a href="mailto:support@gunnstakes.com" className="hover:text-primary transition-colors">
+                    support@gunnstakes.com
+                  </a>
+                </p>
+                <p>
+                  <strong>Hours:</strong> Mon-Fri, 9AM-5PM EST
+                </p>
+                <p className="pt-2">
+                  Have questions about a sweepstake? Need help with your entry? Our support team is here to assist you.
+                </p>
+              </address>
+            </div>
           </div>
           
-          <div className="border-t border-border pt-8 text-center">
-            <p className="text-muted-foreground">
-              © {new Date().getFullYear()} GUNN STAKES. All rights reserved.
-            </p>
-            <p className="text-sm text-muted-foreground mt-2">
-              Enter responsibly. Must be 18+ to participate. No purchase necessary.
-            </p>
-            {/* External link for SEO */}
-            <p className="text-xs text-muted-foreground mt-4">
-              Sweepstakes rules and eligibility vary by offer. Please read official rules on sponsor sites before entering.
+          <div className="border-t border-border pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+              <div>
+                <p className="text-muted-foreground">
+                  © {new Date().getFullYear()} GUNN STAKES. All rights reserved.
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Enter responsibly. Must be 18+ to participate. No purchase necessary.
+                </p>
+              </div>
+              <div className="flex items-center gap-4 text-sm">
+                {/* External links for SEO */}
+                <a 
+                  href="https://www.ftc.gov/legal-library/browse/rules/sweepstakes" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors underline"
+                >
+                  FTC Sweepstakes Guidelines
+                </a>
+                <a 
+                  href="https://www.consumer.ftc.gov/articles/prize-scams" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors underline"
+                >
+                  Avoid Prize Scams
+                </a>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-4 text-center">
+              Sweepstakes rules and eligibility vary by offer. Please read official rules on sponsor sites before entering. GUNN STAKES is an independent sweepstakes aggregator and is not affiliated with individual sweepstakes sponsors.
             </p>
           </div>
         </div>
