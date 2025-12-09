@@ -1,11 +1,14 @@
 import { useState, useMemo, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Hero } from "@/components/Hero";
 import { SearchFilters } from "@/components/SearchFilters";
 import { SweepstakeCard } from "@/components/SweepstakeCard";
 import { FeaturedSection } from "@/components/FeaturedSection";
+import { LastUpdated } from "@/components/LastUpdated";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Trophy } from "lucide-react";
 
 interface Sweepstake {
   id: string;
@@ -277,9 +280,17 @@ const Index = () => {
               <a href="#featured-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">Featured</a>
               <a href="#all-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">All Sweepstakes</a>
               <a href="#categories" className="text-muted-foreground hover:text-primary transition-colors">Categories</a>
+              <Link to="/winners" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+                <Trophy className="h-3 w-3" />Winners
+              </Link>
             </div>
           </div>
         </nav>
+
+        {/* Daily Update Messaging */}
+        <div className="max-w-7xl mx-auto px-4">
+          <LastUpdated totalSweepstakes={sweepstakes.length} newToday={3} />
+        </div>
 
         <SearchFilters
           onSearchChange={setSearchQuery}
@@ -417,6 +428,7 @@ const Index = () => {
                   <li><a href="#featured-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">Featured Sweepstakes</a></li>
                   <li><a href="#all-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">All Sweepstakes</a></li>
                   <li><a href="#categories" className="text-muted-foreground hover:text-primary transition-colors">Categories</a></li>
+                  <li><Link to="/winners" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"><Trophy className="h-3 w-3" />Winners</Link></li>
                   <li><a href="#faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</a></li>
                 </ul>
               </nav>
