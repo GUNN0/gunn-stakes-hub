@@ -105,7 +105,7 @@ const Index = () => {
     return filtered;
   }, [searchQuery, selectedCategory, selectedCountry, sortBy, sweepstakes]);
 
-  const baseUrl = "https://gunnstakes.com";
+  const baseUrl = "https://www.gunnstakes.store";
 
   // BreadcrumbList JSON-LD Schema
   const breadcrumbSchema = {
@@ -169,7 +169,7 @@ const Index = () => {
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer support",
-      "email": "support@gunnstakes.com",
+      "email": "support@gunnstakes.store",
       "availableLanguage": ["English"],
       "hoursAvailable": {
         "@type": "OpeningHoursSpecification",
@@ -454,8 +454,8 @@ const Index = () => {
               <address className="not-italic text-sm text-muted-foreground space-y-2">
                 <p>
                   <strong>Email:</strong>{" "}
-                  <a href="mailto:support@gunnstakes.com" className="hover:text-primary transition-colors">
-                    support@gunnstakes.com
+                  <a href="mailto:support@gunnstakes.store" className="hover:text-primary transition-colors">
+                    support@gunnstakes.store
                   </a>
                 </p>
                 <p>
