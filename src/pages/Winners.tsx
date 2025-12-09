@@ -21,7 +21,7 @@ const winners: Winner[] = [
     location: "Texas",
     prize: "$5,000 Cash Prize",
     category: "Cash",
-    date: "December 2024",
+    date: "December 2025",
     testimonial: "I couldn't believe it when I got the email. GUNN STAKES made it so easy to find legitimate sweepstakes!"
   },
   {
@@ -30,7 +30,7 @@ const winners: Winner[] = [
     location: "California",
     prize: "iPhone 15 Pro Max",
     category: "Electronics",
-    date: "November 2024",
+    date: "November 2025",
     testimonial: "I've been entering sweepstakes for years, but this is my first big win. So grateful!"
   },
   {
@@ -39,7 +39,7 @@ const winners: Winner[] = [
     location: "Florida",
     prize: "$2,500 Vacation Package",
     category: "Travel",
-    date: "November 2024"
+    date: "November 2025"
   },
   {
     id: "4",
@@ -47,7 +47,7 @@ const winners: Winner[] = [
     location: "New York",
     prize: "PS5 Console Bundle",
     category: "Gaming",
-    date: "October 2024",
+    date: "October 2025",
     testimonial: "My kids are thrilled! Thank you for curating such great opportunities."
   },
   {
@@ -56,7 +56,7 @@ const winners: Winner[] = [
     location: "Ohio",
     prize: "$1,000 Grocery Gift Cards",
     category: "Groceries",
-    date: "October 2024"
+    date: "October 2025"
   },
   {
     id: "6",
@@ -64,7 +64,7 @@ const winners: Winner[] = [
     location: "Arizona",
     prize: "$10,000 Grand Prize",
     category: "Cash",
-    date: "September 2024",
+    date: "September 2025",
     testimonial: "Life-changing! I entered through GUNN STAKES and won the grand prize. Can't thank them enough!"
   },
   {
@@ -73,7 +73,7 @@ const winners: Winner[] = [
     location: "Michigan",
     prize: "MacBook Pro 16\"",
     category: "Electronics",
-    date: "September 2024"
+    date: "September 2025"
   },
   {
     id: "8",
@@ -81,7 +81,7 @@ const winners: Winner[] = [
     location: "Georgia",
     prize: "Caribbean Cruise for 2",
     category: "Travel",
-    date: "August 2024",
+    date: "August 2025",
     testimonial: "Best vacation of our lives, all because I found this sweepstake on GUNN STAKES!"
   }
 ];
@@ -90,7 +90,7 @@ const totalPrizeValue = "$150,000+";
 const totalWinners = "500+";
 
 const Winners = () => {
-  const baseUrl = "https://gunnstakes.store";
+  const baseUrl = "https://www.gunnstakes.store";
 
   const winnersSchema = {
     "@context": "https://schema.org",
