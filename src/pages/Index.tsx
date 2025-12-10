@@ -434,35 +434,64 @@ const Index = () => {
               </nav>
             </div>
             <div>
-              <h3 className="font-bold text-lg mb-4">Categories</h3>
+              <h3 className="font-bold text-lg mb-4">Helpful Resources</h3>
               <ul className="space-y-2 text-sm">
-                {["Cash", "Electronics", "Travel", "Gaming", "Groceries"].map((cat) => (
-                  <li key={cat}>
-                    <a 
-                      href="#all-sweepstakes" 
-                      onClick={() => setSelectedCategory(cat.toLowerCase())}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {cat} Sweepstakes
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <a 
+                    href="https://consumer.ftc.gov/articles/prize-scams" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    FTC: Spotting Prize Scams
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://consumer.ftc.gov/articles/fake-prize-sweepstakes-and-lottery-scams" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    FTC: Fake Sweepstakes Guide
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.bbb.org/article/scams/8606-bbb-tip-sweepstakes-and-lottery-scams" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    BBB: Sweepstakes Safety Tips
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.usa.gov/common-scams-frauds" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    USA.gov: Scam Prevention
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="font-bold text-lg mb-4">Contact & Support</h3>
-              <address className="not-italic text-sm text-muted-foreground space-y-2">
-                <p>
-                  <strong>Email:</strong>{" "}
-                  <a href="mailto:support@gunnstakes.store" className="hover:text-primary transition-colors">
+              <address className="not-italic text-sm text-muted-foreground space-y-3">
+                <div className="bg-card border border-border rounded-lg p-3">
+                  <p className="font-medium text-foreground mb-1">Email Us</p>
+                  <a href="mailto:support@gunnstakes.store" className="hover:text-primary transition-colors text-primary">
                     support@gunnstakes.store
                   </a>
+                </div>
+                <p>
+                  <strong>Support Hours:</strong> Mon-Fri, 9AM-5PM EST
                 </p>
                 <p>
-                  <strong>Hours:</strong> Mon-Fri, 9AM-5PM EST
-                </p>
-                <p className="pt-2">
-                  Have questions about a sweepstake? Need help with your entry? Our support team is here to assist you.
+                  Have questions about a sweepstake or need help? Our team typically responds within 24 hours.
                 </p>
               </address>
             </div>

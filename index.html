@@ -101,9 +101,90 @@
       }
     }
     </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.gunnstakes.store"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Free Sweepstakes",
+          "item": "https://www.gunnstakes.store/"
+        }
+      ]
+    }
+    </script>
+
+    <!-- WebPage Schema with CTA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Win Cash & Prizes - Free Sweepstakes You Can Actually Win",
+      "description": "Browse verified sweepstakes with real cash and prizes. Updated daily. 100% free entry, no purchase necessary.",
+      "url": "https://www.gunnstakes.store",
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "Free Sweepstakes and Giveaways",
+        "description": "Curated collection of verified, free-to-enter sweepstakes"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "name": "Browse Sweepstakes",
+        "target": "https://www.gunnstakes.store/#all-sweepstakes"
+      }
+    }
+    </script>
   </head>
 
   <body>
+    <!-- Server-rendered content for SEO crawlers -->
+    <header id="seo-header" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+      <h1>Win Cash & Prizes - Free Sweepstakes You Can Actually Win</h1>
+      <p>GUNN STAKES is your trusted hub for legitimate sweepstakes. Enter verified giveaways for cash, electronics, travel, and more — completely free with no purchase necessary.</p>
+      <nav aria-label="Primary navigation">
+        <a href="https://www.gunnstakes.store/">Home</a>
+        <a href="https://www.gunnstakes.store/#featured-sweepstakes">Featured Sweepstakes</a>
+        <a href="https://www.gunnstakes.store/#all-sweepstakes">Browse All Sweepstakes</a>
+        <a href="https://www.gunnstakes.store/#categories">Categories</a>
+        <a href="https://www.gunnstakes.store/winners">Winners</a>
+        <a href="https://www.gunnstakes.store/#faq">FAQ</a>
+      </nav>
+      <section>
+        <h2>Featured Sweepstakes</h2>
+        <p>Browse verified sweepstakes updated daily. No purchase required.</p>
+        <a href="https://www.gunnstakes.store/#all-sweepstakes">Browse Sweepstakes Now</a>
+      </section>
+      <section>
+        <h2>Why Choose GUNN STAKES?</h2>
+        <ul>
+          <li>100% Free Entry - No purchase necessary</li>
+          <li>Real Verified Prizes - Cash, electronics, travel & more</li>
+          <li>Updated Daily - Fresh opportunities every day</li>
+          <li>All Sweepstakes Verified - We check every listing</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Contact & Support</h2>
+        <p>Email: support@gunnstakes.store</p>
+        <p>For sweepstakes inquiries or to report an issue, contact us anytime.</p>
+      </section>
+      <section>
+        <h2>Helpful Resources</h2>
+        <a href="https://consumer.ftc.gov/articles/prize-scams" rel="noopener">FTC Guide to Prize Scams</a>
+        <a href="https://consumer.ftc.gov/articles/fake-prize-sweepstakes-and-lottery-scams" rel="noopener">How to Spot Fake Sweepstakes</a>
+      </section>
+    </header>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

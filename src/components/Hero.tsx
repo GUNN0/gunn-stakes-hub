@@ -1,7 +1,12 @@
-import { Gift, Trophy, Clock, Shield, Users, DollarSign } from "lucide-react";
+import { Gift, Trophy, Clock, Shield, Users, DollarSign, ArrowDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
 
 export const Hero = () => {
+  const scrollToSweepstakes = () => {
+    document.getElementById('all-sweepstakes')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <header className="relative min-h-[70vh] flex flex-col items-center justify-center px-4 pt-20 pb-16 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial pointer-events-none" />
@@ -34,12 +39,26 @@ export const Hero = () => {
         </p>
         
         {/* Sub-description for more clarity */}
-        <p className="text-lg text-muted-foreground/80 mb-10 animate-fade-in max-w-2xl mx-auto" style={{ animationDelay: "0.25s" }}>
+        <p className="text-lg text-muted-foreground/80 mb-8 animate-fade-in max-w-2xl mx-auto" style={{ animationDelay: "0.25s" }}>
           We curate and verify every sweepstake so you only see real opportunities. Join thousands of winners who've claimed prizes through our platform.
         </p>
 
+        {/* PROMINENT CTA BUTTON */}
+        <div className="animate-fade-in mb-10" style={{ animationDelay: "0.3s" }}>
+          <Button 
+            onClick={scrollToSweepstakes}
+            size="lg"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 h-auto font-bold shadow-lg hover:shadow-xl transition-all duration-300 group"
+          >
+            <Gift className="mr-2 h-5 w-5" />
+            Browse Sweepstakes Now
+            <ArrowDown className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
+          </Button>
+          <p className="mt-3 text-sm text-muted-foreground">No signup required • Start entering in seconds</p>
+        </div>
+
         {/* Primary Value Props with Icons */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 animate-fade-in mb-10" style={{ animationDelay: "0.3s" }}>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 animate-fade-in mb-10" style={{ animationDelay: "0.35s" }}>
           <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 border border-border/50">
             <Gift className="h-8 w-8 text-primary" />
             <span className="font-semibold">100% Free Entry</span>
