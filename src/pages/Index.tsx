@@ -6,6 +6,8 @@ import { SearchFilters } from "@/components/SearchFilters";
 import { SweepstakeCard } from "@/components/SweepstakeCard";
 import { FeaturedSection } from "@/components/FeaturedSection";
 import { LastUpdated } from "@/components/LastUpdated";
+import { TrustStats } from "@/components/TrustStats";
+import { RecentWinners } from "@/components/RecentWinners";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Trophy } from "lucide-react";
@@ -263,6 +265,9 @@ const Index = () => {
 
       <Hero />
       
+      {/* Trust Statistics */}
+      <TrustStats />
+      
       <main className="pb-20">
         {/* Navigation with internal links */}
         <nav aria-label="Main navigation" className="max-w-7xl mx-auto px-4 py-4 border-b border-border/50 mb-6">
@@ -384,6 +389,9 @@ const Index = () => {
           </>
         )}
       </main>
+
+      {/* Recent Winners Section */}
+      <RecentWinners />
 
       {/* FAQ Section for more content */}
       <section id="faq" className="max-w-4xl mx-auto px-4 py-16" aria-labelledby="faq-heading">
