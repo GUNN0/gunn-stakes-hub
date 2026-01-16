@@ -8,9 +8,11 @@ import { FeaturedSection } from "@/components/FeaturedSection";
 import { LastUpdated } from "@/components/LastUpdated";
 import { TrustStats } from "@/components/TrustStats";
 import { RecentWinners } from "@/components/RecentWinners";
+import { NoSweepstakesAvailable } from "@/components/NoSweepstakesAvailable";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Trophy } from "lucide-react";
+import { useUserCountry } from "@/hooks/useUserCountry";
+import { Trophy, Shield, MapPin } from "lucide-react";
 
 interface Sweepstake {
   id: string;
@@ -31,7 +33,16 @@ const Index = () => {
   const [sortBy, setSortBy] = useState("newest");
   const [sweepstakes, setSweepstakes] = useState<Sweepstake[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAllSweepstakes, setShowAllSweepstakes] = useState(false);
   const { toast } = useToast();
+  const { countryCode, countryName, loading: countryLoading } = useUserCountry();
+
+  // Auto-filter by user's country when detected (but only if not manually filtered)
+  useEffect(() => {
+    if (countryCode && selectedCountry === "all" && !showAllSweepstakes) {
+      // Don't auto-set the dropdown, but we'll use it in filtering
+    }
+  }, [countryCode]);
 
   useEffect(() => {
     fetchSweepstakes();
@@ -57,8 +68,19 @@ const Index = () => {
     }
   };
 
+  // Sweepstakes available for user's detected country
+  const countryFilteredSweepstakes = useMemo(() => {
+    if (!countryCode || showAllSweepstakes) return sweepstakes;
+    return sweepstakes.filter(
+      (sweepstake) =>
+        !sweepstake.eligible_countries || 
+        sweepstake.eligible_countries.length === 0 ||
+        sweepstake.eligible_countries.includes(countryCode)
+    );
+  }, [sweepstakes, countryCode, showAllSweepstakes]);
+
   const filteredSweepstakes = useMemo(() => {
-    let filtered = [...sweepstakes];
+    let filtered = [...countryFilteredSweepstakes];
 
     // Filter by search query
     if (searchQuery) {
@@ -77,7 +99,7 @@ const Index = () => {
       );
     }
 
-    // Filter by country
+    // Filter by country (manual dropdown selection)
     if (selectedCountry !== "all") {
       filtered = filtered.filter(
         (sweepstake) =>
@@ -105,7 +127,15 @@ const Index = () => {
     }
 
     return filtered;
-  }, [searchQuery, selectedCategory, selectedCountry, sortBy, sweepstakes]);
+  }, [searchQuery, selectedCategory, selectedCountry, sortBy, countryFilteredSweepstakes]);
+
+  // Check if we should show the "no sweepstakes" message
+  const showNoSweepstakesForCountry = !showAllSweepstakes && 
+    countryCode && 
+    countryFilteredSweepstakes.length === 0 && 
+    sweepstakes.length > 0 &&
+    !loading &&
+    !countryLoading;
 
   const baseUrl = "https://www.gunnstakes.store";
 
@@ -281,13 +311,22 @@ const Index = () => {
             </ol>
             
             {/* Internal navigation links */}
-            <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-4 text-sm flex-wrap">
               <a href="#featured-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">Featured</a>
               <a href="#all-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">All Sweepstakes</a>
               <a href="#categories" className="text-muted-foreground hover:text-primary transition-colors">Categories</a>
+              <Link to="/how-we-verify" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+                <Shield className="h-3 w-3" />How We Verify
+              </Link>
               <Link to="/winners" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
                 <Trophy className="h-3 w-3" />Winners
               </Link>
+              {countryCode && (
+                <span className="text-muted-foreground flex items-center gap-1 ml-auto">
+                  <MapPin className="h-3 w-3" />
+                  Showing for: {countryName || countryCode}
+                </span>
+              )}
             </div>
           </div>
         </nav>
@@ -304,10 +343,15 @@ const Index = () => {
           onSortChange={setSortBy}
         />
 
-        {loading ? (
+        {loading || countryLoading ? (
           <div className="max-w-7xl mx-auto px-4 text-center py-20">
             <p className="text-2xl text-muted-foreground">Loading sweepstakes...</p>
           </div>
+        ) : showNoSweepstakesForCountry ? (
+          <NoSweepstakesAvailable 
+            countryName={countryName} 
+            onShowAll={() => setShowAllSweepstakes(true)} 
+          />
         ) : filteredSweepstakes.length === 0 ? (
           <div className="max-w-7xl mx-auto px-4 text-center py-20">
             <h2 className="text-2xl font-bold mb-2">No Sweepstakes Found</h2>
@@ -436,6 +480,7 @@ const Index = () => {
                   <li><a href="#featured-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">Featured Sweepstakes</a></li>
                   <li><a href="#all-sweepstakes" className="text-muted-foreground hover:text-primary transition-colors">All Sweepstakes</a></li>
                   <li><a href="#categories" className="text-muted-foreground hover:text-primary transition-colors">Categories</a></li>
+                  <li><Link to="/how-we-verify" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"><Shield className="h-3 w-3" />How We Verify</Link></li>
                   <li><Link to="/winners" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"><Trophy className="h-3 w-3" />Winners</Link></li>
                   <li><a href="#faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</a></li>
                 </ul>
