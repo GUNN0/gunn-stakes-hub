@@ -370,16 +370,42 @@ const Index = () => {
                 Find sweepstakes that match your interests. From cash prizes to electronics, travel packages to gaming gear - we have something for everyone.
               </p>
               <div className="flex flex-wrap gap-3">
-                {["Cash", "Electronics", "Travel", "Gaming", "Stimulus", "Groceries", "Food Stamps"].map((category) => (
-                  <a
-                    key={category}
-                    href={`#all-sweepstakes`}
-                    onClick={() => setSelectedCategory(category.toLowerCase().replace(/\s+/g, "-"))}
-                    className="px-4 py-2 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors text-sm font-medium"
-                  >
-                    {category}
-                  </a>
-                ))}
+                <Link
+                  to="/cash-sweepstakes"
+                  className="px-4 py-2 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors text-sm font-medium"
+                >
+                  Cash
+                </Link>
+                <Link
+                  to="/electronics-giveaways"
+                  className="px-4 py-2 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors text-sm font-medium"
+                >
+                  Electronics
+                </Link>
+                <Link
+                  to="/travel-sweepstakes"
+                  className="px-4 py-2 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors text-sm font-medium"
+                >
+                  Travel
+                </Link>
+                <Link
+                  to="/gaming-giveaways"
+                  className="px-4 py-2 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors text-sm font-medium"
+                >
+                  Gaming
+                </Link>
+                <Link
+                  to="/grocery-sweepstakes"
+                  className="px-4 py-2 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors text-sm font-medium"
+                >
+                  Groceries
+                </Link>
+                <Link
+                  to="/automotive-sweepstakes"
+                  className="px-4 py-2 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors text-sm font-medium"
+                >
+                  Automotive
+                </Link>
               </div>
             </section>
             
